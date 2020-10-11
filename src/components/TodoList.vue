@@ -29,6 +29,7 @@
 <script>
 import Todo from "./Todo.vue";
 import CreateTodo from "./CreateTodo.vue";
+import http from "../http-common";
 
 export default {
   props: {
@@ -39,13 +40,22 @@ export default {
       todos: [
         { description: "Do the dishes", completed: false },
         { description: "Take out the trash", completed: false },
-        { description: "Finish doing laundry", completed: false },
+        { description: "Finish doing laundry", completed: true },
       ],
     };
   },
   methods: {
     addTodo(newTodo) {
       this.todos.push({ description: newTodo, completed: false });
+      console.log("will push this message");
+      http.post("/demo",{
+        title: "halo",
+        description: "bandung"
+      }).then((response) => {
+        console.log(response);
+      }, (error) => {
+        console.log(error);
+      });
     },
     toggleTodo(todo) {
       todo.completed = !todo.completed;
