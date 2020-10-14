@@ -48,9 +48,9 @@ export default {
     addTodo(newTodo) {
       this.todos.push({ description: newTodo, completed: false });
       console.log("will push this message");
-      http.post("/demo",{
-        title: "halo",
-        description: "bandung"
+      http.post("/todo",{
+        description: "bandung",
+        completed: false
       }).then((response) => {
         console.log(response);
       }, (error) => {

@@ -7,9 +7,12 @@ COPY . .
 RUN npm run build
 
 # production stage
-FROM nginx:1.17 as production-stage
+FROM nginx:stable-alpine as production-stage
 COPY ./nginx.conf /etc/nginx/nginx.conf
-WORKDIR /code
-COPY --from=build-stage /app/dist .
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+RUN chgrp -R 0 /usr/share/nginx/html && \
+    chmod -R g=u /usr/share/nginx/html
+COPY entrypoint.sh /usr/share/nginx/
+ENTRYPOINT ["/usr/share/nginx/entrypoint.sh"]
 EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
