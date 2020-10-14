@@ -1,5 +1,5 @@
 import axios from "axios";
-// import getEnv from '@/utils/env'
+import getEnv from '@/utils/env'
 
 export default axios.create({
 
