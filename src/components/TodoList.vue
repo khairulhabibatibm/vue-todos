@@ -38,18 +38,19 @@ export default {
   data() {
     return {
       todos: [
-        { description: "Do the dishes", completed: false },
-        { description: "Take out the trash", completed: false },
-        { description: "Finish doing laundry", completed: true },
+        // { description: "Do the dishes", completed: false },
+        // { description: "Take out the trash", completed: false },
+        // { description: "Finish doing laundry", completed: true },
       ],
     };
+    // this.getAll();
   },
   methods: {
     addTodo(newTodo) {
       this.todos.push({ description: newTodo, completed: false });
       console.log("will push this message");
       http.post("/todo",{
-        description: "bandung",
+        description: newTodo,
         completed: false
       }).then((response) => {
         console.log(response);
@@ -66,6 +67,20 @@ export default {
     editTodo(todo, newTodoDescription) {
       todo.description = newTodoDescription;
     },
+    getAll(){
+      http.get("/todo")
+      .then(response => {
+        // this.todos = response.data;
+        response.data.todos.forEach(element => {
+          this.todos.push({description: element.description, completed: element.completed});  
+        });
+      }).catch(e => {
+        console.log(e);
+      });
+    },
+  },
+  mounted() {
+    this.getAll();
   },
   components: { Todo, CreateTodo },
 };
