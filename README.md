@@ -1,5 +1,7 @@
 # vue-todos
 
+forked and modified from [BrandonBurrus/vue-todos](https://github.com/BrandonBurrus/vue-todos)
+
 ## Project setup
 ```
 yarn install
