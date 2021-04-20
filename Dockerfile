@@ -12,6 +12,7 @@ COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 RUN chgrp -R 0 /usr/share/nginx/html && chmod -R g=u /usr/share/nginx/html
 COPY entrypoint.sh /usr/share/nginx/
+RUN ["chmod","+x","/usr/share/nginx/entrypoint.sh"] 
 ENTRYPOINT ["/usr/share/nginx/entrypoint.sh"]
 EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
